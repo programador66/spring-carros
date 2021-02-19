@@ -53,4 +53,12 @@ public class CarroService {
 		
 	}
 
+	public void deleteCar(long id) {
+		Optional<Carro> carro = getCarrosById(id);
+		if(carro.isPresent()) {
+			rep.deleteById(id);
+		}
+		
+	}
+
 }

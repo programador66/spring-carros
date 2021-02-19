@@ -3,6 +3,7 @@ package com.example.carros.api;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +50,14 @@ public class CarrosController {
 		Carro c = service.update(carro, id);
 		
 		return "Carro atualizado com sucesso: " + c.getId();
+	}
+	
+	@DeleteMapping("/{id}")
+	public String del(@PathVariable("id") long id) {
+		
+		service.deleteCar(id);
+		
+		return "Carro excluido com sucesso: ";
 	}
 	
 }
