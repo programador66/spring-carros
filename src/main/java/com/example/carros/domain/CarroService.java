@@ -20,17 +20,17 @@ public class CarroService {
 		
 		List<Carro> carros = rep.findAll();
 		
-		List<CarroDTO> list = carros.stream().map(c -> new CarroDTO(c)).collect(Collectors.toList());
+		List<CarroDTO> list = carros.stream().map(CarroDTO::create).collect(Collectors.toList());
 		
 		return list;
 	}
 	
-	public Optional<Carro> getCarrosById(Long id) {
-		return rep.findById(id);
+	public Optional<CarroDTO> getCarrosById(Long id) {
+		return rep.findById(id).map(CarroDTO::create);
 	}
 	
 	public List<CarroDTO> getCarrosByTipo(String tipo) {
-		return rep.getCarrosByTipo(tipo).stream().map(c -> new CarroDTO(c)).collect(Collectors.toList());
+		return rep.getCarrosByTipo(tipo).stream().map(CarroDTO::create).collect(Collectors.toList());
 	}
 
 	public Carro insert(Carro carro) {
@@ -63,8 +63,8 @@ public class CarroService {
 	}
 
 	public void deleteCar(long id) {
-		Optional<Carro> carro = getCarrosById(id);
-		if(carro.isPresent()) {
+		
+		if(getCarrosById(id).isPresent()) {
 			rep.deleteById(id);
 		}
 		

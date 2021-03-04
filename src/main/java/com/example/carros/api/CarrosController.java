@@ -33,7 +33,7 @@ public class CarrosController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity getCarroById(@PathVariable("id") Long id) {
-		Optional<Carro> carro = service.getCarrosById(id);
+		Optional<CarroDTO> carro = service.getCarrosById(id);
 		
 		return carro.map(c -> ResponseEntity.ok(c))
 				.orElse(ResponseEntity.notFound().build());
