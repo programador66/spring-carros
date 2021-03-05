@@ -33,9 +33,8 @@ public class CarroService {
 		return rep.getCarrosByTipo(tipo).stream().map(CarroDTO::create).collect(Collectors.toList());
 	}
 
-	public Carro insert(Carro carro) {
-		return rep.save(carro);
-		
+	public CarroDTO insert(Carro carro) {
+		return CarroDTO.create(rep.save(carro));
 	}
 
 	public Carro update(Carro carro, long id) {
@@ -43,7 +42,7 @@ public class CarroService {
 		Assert.notNull(id, "Não foi possivel atualizar o registro");
 		
 		//busca o carro no banco de dados
-		Optional<Carro> optional = getCarrosById(id);
+		Optional<Carro> optional = rep.findById(id);
 		if(optional.isPresent()) {
 			Carro db = optional.get();
 			//copiar as propiedades
@@ -62,11 +61,14 @@ public class CarroService {
 		
 	}
 
-	public void deleteCar(long id) {
+	public boolean deleteCar(long id) {
 		
 		if(getCarrosById(id).isPresent()) {
 			rep.deleteById(id);
+			return true;
 		}
+		
+		return false;
 		
 	}
 
