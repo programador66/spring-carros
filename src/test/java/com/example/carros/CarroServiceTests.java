@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import com.example.carros.domain.CarroService;
 import com.example.carros.domain.dto.CarroDTO;
 
 @SpringBootTest
-class CarrosApplicationTests {
+class CarroServiceTests {
 
 	@Autowired CarroService service;
 	
@@ -52,4 +53,18 @@ class CarrosApplicationTests {
 		
 	}
 
+	@Test
+	public void testLista() {
+		List<CarroDTO> carros = service.getCarros();
+
+		assertEquals(30, carros.size());
+	}
+
+	@Test
+	public void testListaPorTipo() {
+		assertEquals(10, service.getCarrosByTipo("esportivos").size());
+		assertEquals(10, service.getCarrosByTipo("classicos").size());
+		assertEquals(10, service.getCarrosByTipo("luxo").size());
+		assertEquals(0, service.getCarrosByTipo("x").size());
+	}
 }
