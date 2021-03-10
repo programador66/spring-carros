@@ -34,6 +34,7 @@ public class CarroService {
 	}
 
 	public CarroDTO insert(Carro carro) {
+		Assert.isNull(carro.getId(), "Não foi possivel inserir o registro");
 		return CarroDTO.create(rep.save(carro));
 	}
 
@@ -61,15 +62,8 @@ public class CarroService {
 		
 	}
 
-	public boolean deleteCar(long id) {
-		
-		if(getCarrosById(id).isPresent()) {
-			rep.deleteById(id);
-			return true;
-		}
-		
-		return false;
-		
+	public void deleteCar(long id) {
+		rep.deleteById(id);
 	}
 
 }
